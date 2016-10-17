@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+
+    <link href="static/css/lib/jquery.toastmessage.css" type="text/css" rel="stylesheet">
+    <link href="static/css/src/main.css" type="text/css" rel="stylesheet">
+    <script>
+        var userId="{{current_user.id}}";
+    </script>
+</head>
+<body>
+
+{% include "header.html" %}
+<!--<script src="templates/header.js"></script>-->
+
+<div class="wrapper3 cols">
+    <div class="col col30">
+
+        {% include "userMenu.html" %}
+        <!--<script src="templates/userMenu.js"></script>-->
+
+    </div>
+    <div class="col col70">
+        <ul class="list8" id="addresses">
+            {% for a in addresses %}
+            <li>
+                <p class="txt">姓名：{{a.receiver_name}}</p>
+                <p class="txt">电话1：{{a.receiver_tel1}}</p>
+                <p class="txt">地址：{{a.receiver_tel2}}</p>
+                <p class="txt tColor">默认地址：{{ "是" if a.as_default else "否"}}</p>
+                <div class="ctrls">
+                    {% if not a.as_default %}
+                    <span class="ctrl setDefault" data-id="{{a.id}}">设为默认地址</span>
+                    {% endif %}
+                    <span class="ctrl delete" data-id="{{a.id}}">删除</span>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <a href="accounts/{{current_user.id}}/addresses/add" class="btn">添加新地址</a>
+    </div>
+</div>
+
+{% include "loading.html" %}
+
+
+{% include "footer.html" %}
+
+
+<script src="static/js/lib/jquery-2.0.3.min.js"></script>
+<script src="static/js/lib/jquery.toastmessage.js"></script>
+<script src="static/js/src/config.js"></script>
+<script src="static/js/src/functions.js"></script>
+<script src="static/js/src/userAddresses.js"></script>
+<script>
+    var menuName="address";
+    $("#userMenu a[data-menu-name="+menuName+"]").addClass("active");
+</script>
+</body>
+</html>

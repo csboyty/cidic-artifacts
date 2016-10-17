@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "backend/head.html" %}
+    <!--meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe-后台管理</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+    <link href="static/css/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="static/css/lib/jquery.dataTables.css" rel="stylesheet" type="text/css">
+    <link href="static/css/lib/jquery.toastmessage.css" rel="stylesheet" type="text/css">
+    <link href="static/css/src/main.css" rel="stylesheet" type="text/css">
+    <script src="static/js/lib/jquery-2.0.3.min.js"></script>
+    <script src="static/js/lib/bootstrap.min.js"></script>
+    <script src="static/js/lib/jquery.dataTables.min.js"></script>
+    <script src="static/js/lib/jquery.validate.min.js"></script>
+    <script src="static/js/lib/jquery.serialize-object.min.js"></script>
+    <script src="static/js/lib/jquery.toastmessage.js"></script>
+    <script src="static/js/lib/juicer-min.js"></script>
+    <script src="static/js/src/config.js"></script>
+    <script src="static/js/src/functions.js"></script>
+    <script src="static/js/src/designerAppliedMgr.js"></script>
+</head>
+<body>
+
+<script type="text/template" id="detailTpl">
+    <ul class="list-group">
+        <li class="list-group-item">
+            <h2>姓名：${name}</h2>
+            <h4>邮箱：${email}</h4>
+            <h4>电话：${tel}</h4>
+            <p>擅长：${specialism}</p>
+            <p>毕业院校：${graduate_institution}</p>
+            <p>设计机构：${organization}</p>
+        </li>
+        <li class="list-group-item">
+            <h4>介绍</h4>
+            <p>${intro}</p>
+        </li>
+        <li class="list-group-item">
+            <h4>附件</h4>
+            <a href="${attachment}">下载</a>
+        </li>
+    </ul>
+</script>
+
+{% include "backend/header.html" %}
+<!--<script src="templates/backend/header.js"></script>-->
+
+<nav class="left">
+
+    {% include "backend/menu.html" %}
+    <!--<script src="templates/backend/menu.js"></script>-->
+
+
+</nav>
+
+<section class="right">
+    <article class="main">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1 class="panel-title">设计师申请</h1>
+            </div>
+            <div class="panel-body" id="opt-body">
+                <div class="input-group tableSearchContainer col-md-6">
+                    <div class="col-md-6">
+                        <input type="text" id="searchContent" class="form-control" placeholder="名字，邮箱，电话">
+                    </div>
+                    <div class="col-md-3" >
+                        <select class="form-control" id="searchType">
+                            <option value="">全部</option>
+                            <option value="0">未处理</option>
+                            <option value="1">已同意</option>
+                            <option value="-1">已拒绝</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <button id="searchBtn" class="btn btn-default" type="button">搜索</button>
+                    </div>
+                </div>
+                <table id="myTable" class="dataTable">
+                    <thead>
+                    <tr>
+                        <th>名字</th>
+                        <th>邮箱</th>
+                        <th>电话</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!--<tr>
+                        <td>4444444444444</td>
+                        <td>待发货</td>
+                        <td>2015-09-10</td>
+                        <td><a href="#" class="check">查看</a></td>
+                    </tr>-->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </article>
+</section>
+
+
+<!--详细信息-->
+<div class="modal fade" id="detailModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">详细信息</h4>
+            </div>
+            <div class="modal-body" id="detailBody">
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+{% include "backend/loading.html" %}
+<!--<script src="templates/backend/loading.js"></script>-->
+
+
+</body>
+</html>

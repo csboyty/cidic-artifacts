@@ -1,0 +1,18 @@
+{
+    "sEcho":1,
+    "success":true,
+    "iTotalRecords":20,
+    "iTotalDisplayRecords":20,
+    "aaData": [{
+        "id":1,
+        "fullname": "xxxx",
+        "email": "xxxx@qq.com",
+        "status":0
+    },
+    {
+        "id":1,
+        "fullname": "xxxx",
+        "email": "xxxx@qq.com",
+        "status":1
+    }]
+}

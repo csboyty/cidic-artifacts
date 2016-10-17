@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+    <link href="static/css/src/main.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+
+{% include "header.html" %}
+<!--<script src="templates/header.js"></script>-->
+
+<div class="wrapper">
+    <p class="globalTip">
+        {% if trade_result %}
+        付款成功，进入&nbsp;<b><a href="accounts/{{current_user.id}}/order">我的订单</a></b>&nbsp;查看订单！
+        {% else %}
+        付款失败，进入&nbsp;<b><a href="accounts/{{current_user.id}}/order">我的订单</a></b>&nbsp;查看订单，并继续付款！
+        {% endif %}
+    </p>
+</div>
+
+
+{% include "footer.html" %}
+
+</body>
+</html>

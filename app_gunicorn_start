@@ -1,0 +1,19 @@
+#! /bin/bash
+
+NAME="yaluoye-app"
+APP_DIR=/home/dev/workspace/python/yaluoye
+VENV_DIR=/opt/python-env/flask-env/
+
+LOG_DIR=/home/dev/workspace/python/yaluoye/logs
+
+echo "Starting $NAME"
+
+cd $VENV_DIR
+source bin/activate
+
+cd $APP_DIR
+
+test -d  $LOG_DIR || mkdir -p $LOG_DIR
+
+exec gunicorn app:application -c gunicorn_app_config.py
+

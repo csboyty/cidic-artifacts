@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+    <link href="static/css/src/main.css" type="text/css" rel="stylesheet">
+
+</head>
+<body>
+
+{% include "header.html" %}
+<!--<script src="templates/header.js"></script>-->
+
+<div class="fluidWrapper">
+    <div class="gradientContainer">
+        <div class="gradient">渐变</div>
+        <img src="static/images/app/bg.png">
+    </div>
+    <div class="wrapper">
+        <div class="section post">
+            <h2 class="sectionTitle1">{{achievement.name}}</h2>
+            <div class="post">
+                {{achievement.intro|safe}}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "footer.html" %}
+
+<script src="static/js/lib/jquery-2.0.3.min.js"></script>
+<script src="static/js/src/config.js"></script>
+<script src="static/js/src/functions.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+    <link href="static/css/lib/jquery.toastmessage.css" type="text/css" rel="stylesheet">
+    <link href="static/css/src/main.css" type="text/css" rel="stylesheet">
+    <script>
+        var oldEmail="{{account.email}}";
+    </script>
+</head>
+<body>
+
+{% include "header.html" %}
+
+<div class="wrapper3 cols">
+    <div class="col col30">
+
+        {% include "userMenu.html" %}
+        <!--<script src="templates/userMenu.js"></script>-->
+
+    </div>
+    <div class="col col70">
+        <form class="form" id="myForm" method="post" action="accounts/{{account.id}}">
+            <div class="editPhoto" id="photoContainer">
+                <img class="photo" src="{{account.image}}" id="photo">
+                <input type="hidden" name="image" id="photoUrl" value="{{account.image}}">
+                <a class="btn" id="photoUpload">上传</a>
+            </div>
+            <div class="row">
+                <label class="label">昵称</label>
+                <input class="input" type="text" name="nick_name" value="{{account.nick_name if account.nick_name else ''}}">
+            </div>
+            <div class="row">
+                <label class="label">邮箱</label>
+                <input class="input" type="text" name="email" id="email" value="{{account.email if account.email else ''}}">
+            </div>
+            <div class="row">
+                <input type="submit" value="确认" class="submitBtn">
+            </div>
+        </form>
+    </div>
+</div>
+
+{% include "loading.html" %}
+
+
+{% include "footer.html" %}
+
+
+<script src="static/js/lib/jquery-2.0.3.min.js"></script>
+<script src="static/js/lib/jquery.toastmessage.js"></script>
+<script src="static/js/lib/jquery.validate.min.js"></script>
+<script src="static/js/lib/jquery.serialize-object.min.js"></script>
+<script src="static/js/lib/plupload.full.min.js"></script>
+<script src="static/js/lib/qiniu.js"></script>
+<script src="static/js/src/config.js"></script>
+<script src="static/js/src/functions.js"></script>
+<script src="static/js/src/userProfile.js"></script>
+<script>
+    var menuName="profile";
+    $("#userMenu a[data-menu-name="+menuName+"]").addClass("active");
+</script>
+</body>
+</html>

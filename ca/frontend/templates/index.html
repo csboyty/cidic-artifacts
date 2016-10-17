@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+    <link href="static/css/lib/flexslider.css" type="text/css" rel="stylesheet">
+    <link href="static/css/src/main.css" type="text/css" rel="stylesheet">
+
+</head>
+<body class="bodyIndex">
+<div id="slider" class="flexslider">
+    <ul class="slides">
+        {% for r in recommend_products %}
+        <li>
+            <a href="products/{{r.id}}">
+                <img src="{{r.bg_image}}" />
+            </a>
+            <!--<div class="detail">
+                <h2 class="title">xxxxxxxxx</h2>
+                <p class="excerpt">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+            </div>-->
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% include "headerIndex.html" %}
+<!--<script src="templates/headerIndex.js"></script>-->
+
+
+<div class="wrapper">
+    <div class="section">
+        <div class="sectionTitle">
+            <h2 class="title">成熟设计作品独家发售</h2>
+            <h5 class="subTitle"><span class="span">Luigi</span>等国际设计师，为你量身定制的产品。</h5>
+        </div>
+
+        {% if products %}
+        <div class="newsProduct">
+            <div class="info">
+                <span class="icon">NEWS!</span>
+                <h2 class="title ellipsis">{{products[0].name}}</h2>
+                <p class="excerpt">{{products[0].detail.intro}}</p>
+                <p class="tip"><span class="square">正方形</span>限量发售，预购从速</p>
+                <p class="price">售价&nbsp;&nbsp;{{'%.2f' % products[0].default_item.price}}&nbsp;&nbsp;RMB</p>
+                <a class="link" href="products/{{products[0].id}}">查看此商品</a>
+            </div>
+            <img src="{{products[0].image}}">
+        </div>
+        {% endif %}
+
+        <ul class="list">
+            {% for p in products %}
+            <li class="show">
+                <a href="products/{{p.id}}">
+                    <div class="thumb">
+                        <img src="{{p.image}}">
+                        <span class="icon">成品</span>
+                    </div>
+                    <div class="info">
+                        <span class="price">{{'%.2f' % p.default_item.price}}&nbsp;RMB</span>
+                        <span class="spe">/</span>
+                        <h4 class="title ellipsis">{{p.name}}</h4>
+                        <p class="author">作者：{{p.designers[0].name if p.designers else ""}}</p>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+            <a class="btn" href="products/sale">查看更多</a>
+        </ul>
+    </div>
+
+    <div class="section">
+        <div class="sectionTitle">
+            <h2 class="title">全新设计作品全球预订</h2>
+            <h5 class="subTitle"><span class="span">Luigi</span>等国际设计师，为你量身定制的产品。</h5>
+        </div>
+
+        <ul class="list1">
+            {% for p in presells %}
+            <li class="show">
+                <div class="thumb">
+                    <img src="{{p.image}}">
+                    <span class="icon">预售</span>
+                </div>
+                <div class="info">
+                    <h4 class="title">{{p.name}}</h4>
+                    <p class="author">作者：
+                        {{p.designers[0].name if p.designers else ""}}</p>
+                    <p class="price"><label class="label">预计售价</label><br>{{'%.2f' % p.default_item.price}}&nbsp;RMB</p>
+                </div>
+                <div class="tips">
+                    <p class="tip">预售时间<br>2015-10-09</p>
+                    <p class="tip">预订人数<br>{{p.presell_amount if p.presell_amount else 0}}</p>
+                    <a href="products/{{p.id}}" class="tip1">去预定</a>
+                </div>
+            </li>
+            {% endfor %}
+            <a class="btn" href="products/presell">查看更多</a>
+        </ul>
+    </div>
+
+    <div class="section">
+        <div class="sectionTitle">
+            <h2 class="title">签约设计师</h2>
+        </div>
+
+        <ul class="list2" >
+            {% for d in designers %}
+            <li class="show">
+                <a href="designers/{{d.id}}">
+                    <img src="{{d.image}}">
+                    <div class="infoBg"></div>
+                    <div class="info">
+                        <h3 class="title ellipsis">{{d.name}}</h3>
+                        <p class="excerpt ellipsis">{{d.nationality}}</p>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+
+            <a class="btn" href="designers/">查看更多</a>
+        </ul>
+    </div>
+</div>
+
+{% include "footer.html" %}
+
+
+<script src="static/js/lib/jquery-2.0.3.min.js"></script>
+<script src="static/js/lib/jquery.flexslider-min.js"></script>
+<script src="static/js/src/config.js"></script>
+<script src="static/js/src/functions.js"></script>
+<script src="static/js/src/index.js"></script>
+</body>
+</html>

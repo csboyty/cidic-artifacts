@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+    <link href="static/css/lib/jquery.toastmessage.css" type="text/css" rel="stylesheet">
+    <link href="static/css/src/main.css" type="text/css" rel="stylesheet">
+
+</head>
+<body>
+
+{% include "header.html" %}
+<!--<script src="templates/header.js"></script>-->
+
+<div class="wrapper3 cols">
+    <div class="col col30">
+
+        {% include "userMenu.html" %}
+        <!--<script src="templates/userMenu.js"></script>-->
+
+    </div>
+    <div class="col col70">
+        <form class="form" id="myForm" method="post" action="accounts/{{current_user.id}}/password">
+            <div class="row">
+                <label class="label">手机</label>
+                <input class="input" type="text" readonly name="tel" value="{{current_user.tel}}">
+                <span class="link link1" id="sendValidCode">发送验证码</span>
+            </div>
+            <div class="row">
+                <label class="label">验证码</label>
+                <input class="input" type="text" name="code">
+            </div>
+            <div class="row">
+                <label class="label">密码</label>
+                <input class="input" type="password" name="password" id="password">
+            </div>
+            <div class="row">
+                <label class="label">确认密码</label>
+                <input class="input" type="password" name="confirmPwd">
+            </div>
+            <div class="row">
+                <input type="submit" value="确认" class="submitBtn">
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{% include "footer.html" %}
+
+
+
+<script src="static/js/lib/jquery-2.0.3.min.js"></script>
+<script src="static/js/lib/jquery.toastmessage.js"></script>
+<script src="static/js/lib/jquery.validate.min.js"></script>
+<script src="static/js/lib/jquery.serialize-object.min.js"></script>
+<script src="static/js/src/config.js"></script>
+<script src="static/js/src/functions.js"></script>
+<script src="static/js/src/userPwd.js"></script>
+<script>
+    var menuName="password";
+    $("#userMenu a[data-menu-name="+menuName+"]").addClass("active");
+</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+
+    <link href="static/css/src/main.css" type="text/css" rel="stylesheet">
+
+</head>
+<body>
+
+{% include "header.html" %}
+<!--<script src="templates/header.js"></script>-->
+
+<div class="wrapper wrapper2">
+    <form class="form" id="myForm" method="post" action="login">
+        {% if next %}
+        <input type="hidden" name="next" value="{{next}}">
+        {% endif %}
+        <h2 class="title">登陆</h2>
+        <div class="row">
+            <label class="label">手机</label>
+            <input class="input" type="text" name="tel">
+        </div>
+        <div class="row">
+            <label class="label">密码</label>
+            <input class="input" type="password" name="password">
+        </div>
+        <div class="row">
+            <input type="submit" value="登陆" class="submitBtn">
+        </div>
+        <div class="row links">
+            <a class="link" href="forgot-password">忘记密码</a>
+            <a class="link link1" href="reg">注册</a>
+        </div>
+        {% if info %}
+        <div class="row">
+            <label class="error">{{info}}</label>
+        </div>
+        {% endif %}
+    </form>
+</div>
+
+
+{% include "footer.html" %}
+
+
+<script src="static/js/lib/jquery-2.0.3.min.js"></script>
+<script src="static/js/lib/jquery.validate.min.js"></script>
+<script src="static/js/src/config.js"></script>
+<script src="static/js/src/functions.js"></script>
+<script src="static/js/src/login.js"></script>
+</body>
+</html>

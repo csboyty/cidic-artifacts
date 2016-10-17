@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+    <link href="static/css/lib/jquery.toastmessage.css" type="text/css" rel="stylesheet">
+    <link href="static/css/src/main.css" type="text/css" rel="stylesheet">
+    <script>
+        var userId="{{current_user.id}}";
+    </script>
+</head>
+<body>
+
+{% include "header.html" %}
+<!--<script src="templates/header.js"></script>-->
+
+<div class="wrapper3 cols">
+    <div class="col col30">
+
+        {% include "userMenu.html" %}
+        <!--<script src="templates/userMenu.js"></script>-->
+
+    </div>
+    <div class="col col70">
+        {% if not address.id %}
+        <form class="form" id="myForm" method="post" action="accounts/{{current_user.id}}/addresses/add">
+            {% else %}
+            <form class="form" id="myForm" method="post" action="accounts/{{current_user.id}}/addresses/{{address.id}}/update">
+            {% endif %}
+
+            <h2 class="title">添加/修改地址</h2>
+            <div class="row">
+                <label class="label">姓名*</label>
+                <input class="input" type="text" name="receiver_name" value="{{address.receiver_name}}">
+            </div>
+            <div class="row">
+                <label class="label">电话*</label>
+                <input class="input" type="text" name="receiver_tel1" value="{{address.receiver_tel1}}">
+            </div>
+            <div class="row">
+                <label class="label">固定电话</label>
+                <input class="input" type="text" name="receiver_tel2" value="{{address.receiver_tel2}}">
+            </div>
+            <div id="selectGroup">
+                <div class="row">
+                    <label class="label">省*:</label>
+                    <select class="input province" name="state" data-value="{{address.state}}">
+
+                    </select>
+                </div>
+                <div class="row">
+                    <label class="label">市*:</label>
+                    <select class="input city" name="city" data-value="{{address.city}}">
+
+                    </select>
+                </div>
+                <div class="row">
+                    <label class="label">县/区:</label>
+                    <select class="input area" name="county" data-value="{{address.county}}">
+
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <label class="label">详细地址*</label>
+                <input class="input" type="text" name="location" value="{{address.location}}">
+            </div>
+            <div class="row">
+                <label class="label">邮编*</label>
+                <input class="input" type="text" name="post_code" value="{{address.post_code}}">
+            </div>
+            <div class="row">
+                <input type="submit" value="确认" class="submitBtn">
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{% include "loading.html" %}
+
+
+{% include "footer.html" %}
+
+
+<script src="static/js/lib/jquery-2.0.3.min.js"></script>
+<script src="static/js/lib/jquery.cxselect.min.js"></script>
+<script src="static/js/lib/jquery.toastmessage.js"></script>
+<script src="static/js/lib/jquery.serialize-object.min.js"></script>
+<script src="static/js/lib/jquery.validate.min.js"></script>
+<script src="static/js/src/config.js"></script>
+<script src="static/js/src/functions.js"></script>
+<script src="static/js/src/userAddressUpdate.js"></script>
+<script>
+    var menuName="address";
+    $("#userMenu a[data-menu-name="+menuName+"]").addClass("active");
+</script>
+</body>
+</html>

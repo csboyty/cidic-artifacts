@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "backend/head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe-后台管理</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+    <link type="text/css" rel="stylesheet" href="static/css/src/login.css">
+    <script src="static/js/lib/jquery-2.0.3.min.js"></script>
+    <script src="static/js/lib/jquery.validate.min.js"></script>
+    <script src="static/js/src/config.js"></script>
+    <script src="static/js/src/functions.js"></script>
+    <script src="static/js/src/login.js"></script>
+</head>
+<body>
+
+    <form class="pCenter" id="myForm" method="post" action="login" name="login_user_form">
+        <span class="loginIcon">登陆图标</span>
+        <h1 class="logo">YaLuoYe</h1>
+        <div class="row">
+            <label class="ctrlLabel">邮箱</label>
+            <input id="email" class="ctrlInput icon1 bgLc" type="text" name="email">
+        </div>
+        <div class="row">
+            <label  class="ctrlLabel">密码</label>
+            <input id="password" class="ctrlInput icon2 bgLc" type="password" name="password">
+        </div>
+        <div class="row">
+            <input type="submit" class="ctrlBtn" value="登陆">
+        </div>
+        {%if info %}
+        <label class="error tCenter">{{info}}</label>
+        {%endif%}
+    </form>
+</body>
+</html>

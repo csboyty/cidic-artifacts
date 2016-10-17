@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+
+    <link href="static/css/src/main.css" type="text/css" rel="stylesheet">
+    <script>
+        var pageName="about";
+    </script>
+</head>
+<body>
+
+{% include "header.html" %}
+<!--<script src="templates/header.js"></script>-->
+
+<div class="fluidWrapper">
+    <div class="gradientContainer">
+        <div class="gradient">渐变</div>
+        <img src="static/images/app/bg.png">
+    </div>
+    <div class="wrapper about">
+        <div class="pageInfo pageInfo1">
+            <h2 class="title">关于</h2>
+            <ul class="list3 list31" id="directory">
+                <li><a href="#intro">网站介绍</a></li>
+                <li><a href="#team">团队介绍</a></li>
+                <li><a href="#designJoin">设计师加入</a></li>
+                <!--<li><a href="#companyJoin">工厂加盟</a></li>-->
+                <li><a href="#contact">联系我们</a></li>
+            </ul>
+        </div>
+        <div class="section" id="intro">
+            <div class="sectionTitle">
+                <h2 class="title">网站介绍</h2>
+            </div>
+            <p class="detail">乡HOME是半公益性质，以传统文化的传承与创新为主旨的文创公益产品销售平台。
+                我们以全新的业务模式进入文创公益产品领域，全产业链流程，国内外设计师实地体验创作，手工艺人匠心打造，
+                省去任意中间环节，全程团队品控，线上线下同步发售，给消费者带来兼具设计感和文化基因的暖心手作。
+                我们的团队将致力于将文化创意类手工产品融入到现代生活之中，使传统文化在市场经济下焕发新的生命力。</p>
+        </div>
+        <div class="section" id="team">
+            <div class="sectionTitle">
+                <h2 class="title">团队介绍</h2>
+            </div>
+            <p class="detail">乡HOME是由20多位具有设计、生产管理、互联网、营销行业经验的精英所组成的创业团队。
+                公司专注于传统手工艺、非物质文化与现代设计结合的产品设计、生产、销售，致力于传统手工艺、非物质文化的传承与保护，
+                我们希望让传统文化融入现代生活，以暖心产品让每个人都能够感受民族文化的魅力。
+                乡HOME团队将继续基于 “新通道”社会创新设计夏令营活动，招募国际设计师和传统手工艺人资源，
+                做出更多富有设计感和传承传统文化的产品。</p>
+        </div>
+        <div class="section" id="designJoin">
+            <div class="sectionTitle">
+                <h2 class="title">设计师加入</h2>
+            </div>
+            <p class="detail">乡HOME是一个生气蓬勃而富有创造力的文创公益设计平台。
+                我们的团队正在寻找创意十足且极具社会责任感的设计师。
+                如果你想通过设计保护和传承传统文化，请加入我们，让我们一起帮助更多的人享受高质量和兼具文化内涵的设计产品，
+                <b>赶快加入我们吧！</b></p>
+            <a class="btn" target="_blank" href="partner-join/designer">加入我们</a>
+        </div>
+        <!--<div class="section" id="companyJoin">
+            <div class="sectionTitle">
+                <h2 class="title">工厂加盟</h2>
+            </div>
+            <p class="detail">这里是文字内容部分</p>
+        </div>-->
+        <div class="section" id="contact">
+            <div class="sectionTitle">
+                <h2 class="title">联系我们</h2>
+            </div>
+            <p class="detail" style="text-indent: 0px;">
+                联系地址：中国湖南省长沙市岳麓大道233号科技大厦1楼<br>
+                邮编：410013<br>
+                联系电话：0731-89789599<br>
+                投诉建议：cidic@cidic.cn
+            </p>
+        </div>
+    </div>
+</div>
+
+{% include "footer.html" %}
+
+<script src="static/js/lib/jquery-2.0.3.min.js"></script>
+<script src="static/js/src/config.js"></script>
+<script src="static/js/src/common.js"></script>
+<script src="static/js/src/about.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+#! /bin/bash
+
+NAME="yaluoye-celery"
+APP_DIR=/home/dev/workspace/python/yaluoye
+VENV_DIR=/opt/python-env/flask-env/
+
+USER=dev
+GROUP=dev
+
+cd $VENV_DIR
+source bin/activate
+
+cd $APP_DIR
+
+exec celery beat -A ca.tasks --loglevel=INFO --logfile logs/celery_order_timeout_beat.log
+
+
+

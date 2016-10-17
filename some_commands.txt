@@ -1,0 +1,13 @@
+celery beat -A celery_demo.celery -l debug
+celery worker -A celery_demo.celery -l debug --queue hipri
+
+
+
+:%s/OLD/NEW/g   vi 替换所有文本
+alter table product_item_stocks add constraint  product_item_stock_quantity_check check(quantity >=0);
+CREATE SEQUENCE order_no_seq INCREMENT 1 MINVALUE 1 MAXVALUE 99999999 START 1 CACHE 1 CYCLE;
+
+
+sudo apt-get install libjpeg-dev
+sudo apt-get install libfreetype6-dev
+pip install wheezy.captcha[Pillow]

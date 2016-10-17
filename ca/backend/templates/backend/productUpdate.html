@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "backend/head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe-后台管理</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+    <link type="text/css" rel="stylesheet" href="static/css/lib/jquery.toastmessage.css">
+    <link href="static/css/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="static/css/src/zyup.css" type="text/css" rel="stylesheet">
+    <link href="static/css/src/main.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="static/js/lib/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="static/js/lib/juicer-min.js"></script>
+    <script type="text/javascript" src="static/js/lib/jquery.toastmessage.js"></script>
+    <script src="static/js/lib/tinymce.min.js"></script>
+    <script src="static/js/lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="static/js/lib/plupload.full.min.js"></script>
+    <script src="static/js/lib/jquery.serialize-object.min.js"></script>
+    <script type="text/javascript" src="static/js/lib/qiniu.js"></script>
+    <script src="static/js/lib/tinymce.min.js"></script>
+    <script src="static/js/src/config.js"></script>
+    <script src="static/js/src/functions.js"></script>
+    <script src="static/js/src/productUpdate.js"></script>
+    <script>
+        var postId="{{product.id}}";
+    </script>
+</head>
+<body>
+<script type="text/template" id="mediaItemTpl">
+    <li class="zyupUnCompleteLi" data-file-id="${fileId}">
+        <span class="zyupMediaFilename">${filename}</span>
+        <span class="zyupPercent">0%</span>
+        <span class="zyupDelete zyupHidden">delete</span>
+    </li>
+</script>
+<script type="text/template" id="previewTpl">
+    <div class="left">
+        <ul class="smallImages">
+            {@each assets as a}
+            <li><a><img src="${a.media_file}"></a></li>
+            {@/each}
+        </ul>
+        <p>标题：${title}</p>
+        <p>作者：${author}</p>
+        <p>尺寸：${size}</p>
+        <label>设计说明</label>
+        <p>${explain}</p>
+        <a class="download" href="${attachment_file}" target="_self">附件下载</a>
+    </div>
+    <div class="right">
+        <img src="${preview}">
+        <br>
+        <label>设计分析</label>
+        <p>${analysis}</p>
+    </div>
+
+</script>
+
+{% include "backend/header.html" %}
+<!--<script src="templates/backend/header.js"></script>-->
+
+<nav class="left">
+
+    {% include "backend/menu.html" %}
+    <!--<script src="templates/backend/menu.js"></script>-->
+
+
+</nav>
+
+
+<section class="right">
+    <article class="main">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1 class="panel-title">上传资料</h1>
+                </div>
+                <div class="panel-body" id="opt-body">
+
+                    <div class="zyupScreen">
+                        <div class="zyupTab" id="zyupTab">
+                            <ol>
+                                <li><a href="#zyupStep1" class="zyupStep  zyupStepCurrent">1. 填写基本信息</a></li>
+                                <li><a href="#zyupStep2" class="zyupStep ">2. 上传</a></li>
+                                <li><a href="#zyupStep3" class="zyupStep">3. 预览并提交</a></li>
+                            </ol>
+                        </div>
+                        {% if not product.id %}
+                        <form class="zyupForm" method="post" action="manager/products/create" id="zyupForm">
+                            {% else %}
+                            <form class="zyupForm" method="post" action="manager/products/{{product.id}}/update" id="zyupForm">
+                            {% endif %}
+                            <div class="zyupStepPanel zyupStepPanel1 " id="zyupStep1">
+
+
+                                <div class="zyupField">
+                                    <label for="zyupTitleInput">标题*</label>
+                                    <input type="text"  maxlength="80" value="{{product.name}}" class="zyupInputGray"
+                                           name="name" id="zyupTitleInput">
+                                </div>
+                                <div class="zyupField">
+                                    <label for="zyupDescriptionTxt">类型*</label>
+                                    <select class="zyupInputGray" name="sell_type">
+                                        {% for type in [{"name":"成品","value":"1"},{"name":"预售","value":"0"}] %}
+                                        {% if product.sell_type == type.value %}
+                                        <option selected value="{{type.value}}">{{type.name}}</option>
+                                        {%  else %}
+                                        <option value="{{type.value}}">{{type.name}}</option>
+                                        {% endif %}
+                                        {%endfor%}
+                                    </select>
+                                </div>
+                                <div class="zyupField">
+                                    <label for="zyupDescriptionTxt">分类*</label>
+                                    <select class="zyupInputGray" name="category_id">
+                                        {% for c in categories %}
+                                        {% if product.category_id == c.id %}
+                                        <option selected value="{{c.id}}">{{c.name}}</option>
+                                        {%  else %}
+                                        <option value="{{c.id}}">{{c.name}}</option>
+                                        {% endif %}
+                                        {%endfor%}
+                                    </select>
+                                </div>
+                                <div class="zyupField">
+                                    <label for="zyupDescriptionTxt">描述</label>
+                                    <textarea class="zyupInputGray" name="intro" id="zyupDescriptionTxt"
+                                              placeholder="">{{product.detail.intro if product.detail else ""}}</textarea>
+                                </div>
+                                <div class="zyupField">
+                                    <label for="zyupDescriptionTxt">产品参数*</label>
+                                    <textarea class="zyupInputGray" name="parameters" id="zyupParamTxt"
+                                              placeholder="">{{product.detail.parameters if product.detail else ""}}</textarea>
+                                </div>
+                                <div class="zyupField">
+                                    <label for="zyupDescriptionTxt">详细内容*</label>
+                                    <textarea class="zyupInputGray" name="content" id="zyupContentTxt"
+                                              placeholder="">{{product.detail.content if product.detail else ""}}</textarea>
+                                <div class="zyupRight">
+                                    <div class="zyupThumbContainer" id="zyupThumbContainer">
+                                        <a href="#" class="zyupButton" id="zyupThumbUploadBtn">上传缩略图</a>
+                                        <span class="zyupTip">510x330px的jpg或png图像。</span>
+
+                                        {% if product.image %}
+                                        <img class="zyupThumb" id="zyupThumb" width="200" height="200"
+                                             src="{{product.image}}"/>
+                                        {% else %}
+                                        <img class="zyupThumb" id="zyupThumb" width="200" height="200"
+                                             src="static/images/zyup/zyupDefaultThumb.png"/>
+                                        {% endif %}
+                                        <input type="hidden" name="image" value="{{product.image}}"
+                                               id="zyupThumbUrl">
+
+                                    </div>
+                                    <div class="zyupThumbContainer" id="zyupBgContainer" style="margin-top: 40px;">
+                                        <a href="#" class="zyupButton" id="zyupBgUploadBtn">上传大图*</a>
+                                        <span class="zyupTip">1920x600px的jpg或png图像。</span>
+                                        {% if product.bg_image %}
+                                        <img class="zyupThumb" id="zyupBg" width="300" height="200"
+                                             src="{{product.bg_image}}"/>
+                                        {% else %}
+                                        <img class="zyupThumb" id="zyupBg" width="300" height="200"
+                                             src="static/images/zyup/zyupDefaultThumb.png"/>
+                                        {% endif %}
+                                        <input type="hidden" name="bg_image" value="{{product.bg_image}}"
+                                               id="zyupBgUrl">
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+
+                            <!-- step 2-->
+                            <div class="zyupStepPanel zyupStepPanel2 zyupHidden" id="zyupStep2">
+
+                                <span class="zyupColumnLeftHeader" id="zyupUploadBtn">添加文件(600x400px的jpg或png图像)</span>
+
+                                <ol id="zyupMediaList" class="zyupMediaList">
+                                    {% if product.detail %}
+                                        {% for a in product.detail.profiles %}
+                                        <li class="zyupMediaItem" data-file-id="{{loop.index}}">
+                                            <span class="zyupPercent">
+                                                <img style='width:100px' src='{{a.media_file}}'>
+                                            </span>
+                                            <span class="zyupMediaFilename">{{a.media_filename}}</span>
+                                            <span class="zyupDelete">delete</span>
+                                        </li>
+                                        {% endfor %}
+                                    {% endif %}
+                                </ol>
+                            </div>
+
+                            <!-- step 3-->
+                            <div class="zyupStepPanel zyupStepPanel3 zyupHidden" id="zyupStep3">
+                                <input type="submit" autocomplete="default" value="提交" class="zyupFormSubmitBtn"
+                                       name="zyupFormSubmitBtn" id="zyupFormSubmitBtn"/>
+
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+    </article>
+</section>
+
+{% include "backend/loading.html" %}
+<!--<script src="templates/backend/loading.js"></script>-->
+
+</body>
+</html>

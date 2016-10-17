@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+    <link href="static/css/lib/jquery.toastmessage.css" type="text/css" rel="stylesheet">
+    <link href="static/css/src/main.css" rel="stylesheet" type="text/css">
+
+
+</head>
+<body>
+
+{% include "header.html" %}
+<!--<script src="templates/header.js"></script>-->
+
+<div class="wrapper">
+    <div class="pageInfo pageInfo1">
+        <h2 class="title">购物车</h2>
+    </div>
+    <div class="section" style="background: #fff;padding-top: 0px">
+        <table class="ylyCart ownTable" cellspacing="0" id="cart">
+            <thead>
+            <tr>
+                <th><input type="checkbox" class="checkAll"></th>
+                <th>商品</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>库存</th>
+                <th>小计</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for p in product_items_with_quantity %}
+            {% set itemObj=p[0] %}
+            <tr class="item" data-item-id="{{p[0].id}}">
+                <td><input type="checkbox" class="checkItem" autocomplete="off"></td>
+                <td class="product">
+                    <a href="products/{{itemObj.product.id}}">
+                        <img class="thumb" src="{{itemObj.product.image}}">
+                        <div class="info">
+                            <span class="intro">{{itemObj.product.name}}</span>
+                            <br>
+                            <span class="memo">{{itemObj.spec}}</span>
+                        </div>
+                    </a>
+                </td>
+                <td>
+                    <span class="price">{{'%.2f' % itemObj.price}}</span>
+                </td>
+                <td>
+                    <div class="quantityContainer">
+                        <span class="quantityCtrl {{'disabled' if p[1]<=1 else ''}}" data-type="decrement">-</span>
+                        <input type="text" value="{{p[1]}}" class="quantity" readonly autocomplete="off">
+                        <span class="quantityCtrl" data-type="increment">+</span>
+                    </div>
+                </td>
+                <td>
+                    <span class="quantityTotal">{{itemObj.quantity}}</span>
+                    {% if p[1]>itemObj.quantity %}
+                        （库存不够）
+                    {% endif %}
+                </td>
+                <td>
+                    <span class="subTotal">{{'%.2f' % (itemObj.price*p[1])}}</span>
+                </td>
+                <td><a href="{{itemObj.id}}" class="delete">删除</a></td>
+            </tr>
+            {% endfor %}
+
+            </tbody>
+            <tfoot>
+            <tr>
+                <td><input type="checkbox" class="checkAll"></td>
+                <td style="text-align: left"><a href="#" id="unCheckAll">取消所选</a></td>
+                <td></td>
+                <td><span>已选<b id="count">0</b>件商品</span></td>
+                <td>&yen;<span id="amount">0</span></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tfoot>
+        </table>
+        <form id="myForm" action="orders/submit" method="post">
+            <input type="hidden" name="items" id="items">
+            <input type="hidden" name="presell" value="0">
+            <button type="submit" class="btn" id="submit">结算</button>
+        </form>
+    </div>
+</div>
+
+{% include "footer.html" %}
+
+{% include "loading.html" %}
+
+    <script src="static/js/lib/jquery-2.0.3.min.js"></script>
+
+    <script src="static/js/lib/jquery.toastmessage.js"></script>
+    <script src="static/js/src/config.js"></script>
+    <script src="static/js/src/functions.js"></script>
+    <script src="static/js/src/cart.js"></script>
+</body>
+</html>

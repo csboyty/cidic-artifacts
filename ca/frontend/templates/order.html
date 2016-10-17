@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+    <link href="static/css/src/main.css" rel="stylesheet" type="text/css">
+
+
+</head>
+<body>
+
+{% include "header.html" %}
+<!--<script src="templates/header.js"></script>-->
+
+<div class="wrapper orderWrapper">
+    <div class="pageInfo pageInfo1">
+        <h2 class="title">结算</h2>
+    </div>
+    <div class="section" style="padding-top: 0px;background: #fff">
+        <table class="ylyCart ownTable" cellspacing="0">
+            <thead>
+            <tr>
+                <th>商品</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>小计</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for p in product_items %}
+            {% set pi=p[0] %}
+            <tr class="item">
+                <td class="product"><a href="products/{{pi.product.id}}">
+                    <img class="thumb" src="{{pi.product.image}}">
+                    <div class="info">
+                        <span class="intro">{{pi.product.name}}</span>
+                        <br>
+                        <span class="memo">{{pi.spec}}</span>
+                    </div>
+                </a></td>
+                <td>{{'%.2f' % pi.price}}</td>
+                <td>{{p[1]}}</td>
+                <td>{{'%.2f' % (pi.price*p[1])}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="section addresses">
+            <h4 class="title">收货地址</h4>
+            <div class="items">
+                <a href="accounts/{{account.id}}/addresses/add" target="_blank" class="addAddress">+添加新地址</a>
+                <ul class="list9" id="addresses">
+                    {% for ad in account.all_addresses %}
+                        {% if ad.id==account.default_address.id %}
+                    <li class="active" data-address-id="{{ad.id}}">
+                        <span class="name">{{ad.receiver_name}}</span>
+                        <span class="phone">{{ad.receiver_tel1}}</span>
+                        <p class="detail">{{ad.state}}{{ad.city}}{{ad.country if ad.country else ""}}{{ad.location}}</p>
+                    </li>
+                        {% else %}
+                    <li data-address-id="{{ad.id}}">
+                        <span class="name">{{ad.receiver_name}}</span>
+                        <span class="phone">{{ad.receiver_tel1}}</span>
+                        <p class="detail">{{ad.state}}{{ad.city}}{{ad.country if ad.country else ""}}{{ad.location}}</p>
+                    </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="section ctrl">
+            <p class="totalAmount">总计：<em>{{amount}}元</em></p>
+
+            <form id="myForm" action="orders/pay" method="post">
+                <input type="hidden" name="order_no"  value="{{order_no}}">
+                <input type="hidden" name="buy_address_id" id="address">
+                <input type="submit" class="btn" value="去付款" id="submit">
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include "loading.html" %}
+
+
+{% include "footer.html" %}
+
+
+<script src="static/js/lib/jquery-2.0.3.min.js"></script>
+<script src="static/js/src/config.js"></script>
+<script src="static/js/src/functions.js"></script>
+<script src="static/js/src/order.js"></script>
+</body>
+</html>

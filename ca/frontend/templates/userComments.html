@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/"-->
+
+    <link href="static/css/src/main.css" type="text/css" rel="stylesheet">
+
+</head>
+<body>
+
+{% include "header.html" %}
+<!--<script src="templates/header.js"></script>-->
+
+<div class="wrapper3 cols">
+    <div class="col col30">
+
+        {% include "userMenu.html" %}
+        <!--<script src="templates/userMenu.js"></script>-->
+
+    </div>
+    <div class="col col70">
+        <ul class="list5 list51">
+            {% for c in comments %}
+            <li>
+                <img class="photo" src="{{c.author.image}}">
+                <div class="info">
+                    <div class="dateContainer">
+                        <p class="date">{{ dt_format(c.created,"%Y-%m-%d")}}</p>
+                    </div>
+                    <span class="name">{{c.author.nick_name}}</span>
+                    <p class="content">{{c.content}}</p>
+                </div>
+                {% if c.reply %}
+                <ul class="list5">
+                    <li>
+                        <div class="info">
+                            <div class="dateContainer">
+                                <p class="date">{{dt_format(c.reply.created,"%Y-%m-%d")}}</p>
+                            </div>
+                            <span class="name">客服回复</span>
+                            <p class="content">{{c.reply.content}}</p>
+                        </div>
+                    </li>
+                </ul>
+                {% endif %}
+
+            </li>
+            {% endfor %}
+
+        </ul>
+    </div>
+</div>
+
+
+{% include "footer.html" %}
+
+
+<script src="static/js/lib/jquery-2.0.3.min.js"></script>
+<script src="static/js/lib/jquery.flexslider-min.js"></script>
+<script src="static/js/src/config.js"></script>
+<script src="static/js/src/functions.js"></script>
+<script>
+    var menuName="comments";
+    $("#userMenu a[data-menu-name="+menuName+"]").addClass("active");
+</script>
+</body>
+</html>

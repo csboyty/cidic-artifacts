@@ -1,0 +1,29 @@
+{
+    "success":true,
+    "results":[{
+        "id":1,
+        "spec":"L",
+        "price":234,
+        "quantity":23
+    },{
+        "id":2,
+        "spec":"XL",
+        "price":234,
+        "quantity":23
+    },{
+        "id":3,
+        "spec":"M",
+        "price":234,
+        "quantity":23
+    },{
+        "id":4,
+        "spec":"XXL",
+        "price":234,
+        "quantity":23
+    },{
+        "id":5,
+        "spec":"XXXL",
+        "price":234,
+        "quantity":23
+    }]
+}

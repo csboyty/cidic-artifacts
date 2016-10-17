@@ -1,0 +1,27 @@
+{
+    "success":true,
+    "result":{
+        "orderId":"xxxxxxxxxxxx",
+        "status":1,
+        "amount":"398",
+        "products":[{
+            "id":1,
+            "name":"产品1",
+            "image":"data/backend/images/smallThumb.jpg",
+            "item-spec":"L",
+            "count":10
+        },{
+            "id":1,
+            "name":"产品2",
+            "image":"data/backend/images/smallThumb.jpg",
+            "item-spec":"XL",
+            "count":2
+        }],
+        "address":{
+            "fullname":"xxxx",
+            "tel":"122222222",
+            "address":"xxxxxxxxxxxxx"
+        },
+        "expressNo":"xxx12323232"
+    }
+}

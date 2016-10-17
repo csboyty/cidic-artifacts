@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+    <link href="static/css/src/main.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+{% include "header.html" %}
+<!--<script src="templates/header.js"></script>-->
+
+<div class="wrapper payPage">
+    <p class="globalTip">您的订单总计需要{{'%.2f' % amount}}元，请点击下方付款按钮付款</p>
+    <form action="orders/do-pay" method="post" target="_blank" id="myForm">
+        <input type="hidden" name="order_no" value="{{order_no}}">
+        <ul class="list10" id="payTypes">
+            <li class="active">
+                <input type="radio" value="alipay" name="pay_type" checked="checked">
+                <img src="http://beeclouddoc.qiniudn.com/ali.png">
+            </li>
+            <li>
+                <input type="radio" value="wechatQr" name="pay_type">
+                <img src="http://beeclouddoc.qiniudn.com/wechats.png">
+            </li>
+        </ul>
+        <input type="submit" class="btn" value="确认付款" id="submit">
+    </form>
+</div>
+
+<div class="popWindow hidden" id="resultWindow">
+    <div class="bg">背景层</div>
+    <div class="container">
+        <!--<span class="close" id="popWindowClose">X</span>-->
+        <a href="accounts/{{current_user.id}}/order" class="btn">支付成功</a>
+        <button class="btn" id="failed">支付失败</button>
+        <p class="globalTip">如果支付遇到问题，请联系我们的客服</p>
+    </div>
+</div>
+
+{% include "footer.html" %}
+
+
+<script src="static/js/lib/jquery-2.0.3.min.js"></script>
+<script src="static/js/src/payment.js"></script>
+</body>
+</html>

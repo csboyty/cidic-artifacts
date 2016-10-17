@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+    <link href="static/css/lib/jquery.toastmessage.css" type="text/css" rel="stylesheet">
+    <link href="static/css/lib/flexslider.css" type="text/css" rel="stylesheet">
+    <link href="static/css/src/main.css" type="text/css" rel="stylesheet">
+    <script>
+        var productName="{{product.name}}";
+        var productId="{{product.id}}";
+        var proId="{{product.id}}";
+        var currentUserId="{{current_user.id}}";
+        var currentUserNickName="{{current_user.nick_name}}";
+        var currentUserImage="{{current_user.image}}";
+    </script>
+</head>
+<body>
+
+<script type="text/template" id="commentTpl">
+    <li>
+        <img class="photo" src="${userImage}">
+        <div class="info">
+            <div class="dateContainer">
+                <a class="reply" href="">回复</a>
+                <p class="date">${created}</p>
+            </div>
+            <span class="name">${nickName}</span>
+            <p class="content">${content}</p>
+        </div>
+    </li>
+</script>
+
+{% include "header.html" %}
+<!--<script src="templates/header.js"></script>-->
+
+<div class="wrapper wrapper1">
+    <div class="section">
+        <div class="productInfo">
+            <div class="images">
+                <div id="slider" class="flexslider">
+                    <ul class="slides">
+                        {% for pdp in product.detail.profiles %}
+                        <li>
+                            <img src="{{pdp.media_file}}" />
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div id="carousel" class="flexslider flex-carousel">
+                    <ul class="slides">
+                        {% for pdp in product.detail.profiles %}
+                        <li>
+                            <img src="{{pdp.media_file}}" />
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="info">
+                <h3 class="title">{{product.name}}</h3>
+                <p class="intro">{{product.intro}}</p>
+                <div class="row noBorder">
+                    <span class="label price">单价&nbsp;&nbsp;<em id="price">{{'%.2f' % product.default_item.price}}</em> RMB</span>
+                    <span class="label saleCount">总计售出{{product.sale}}件</span>
+                </div>
+                {% if product.sell_type==1 %}
+                <div class="row noBorder" style="padding:0px;">
+                    <span class="label">库存：
+                        <em id="allQuantity">
+                            {% if product.status!=-1 %}
+                        {{product.default_item.quantity}}
+                            {% else %}
+                                  已下架
+                            {% endif %}
+                        </em>
+                    </span>
+                </div>
+                {% endif %}
+                <div class="row">
+                    <label class="label">系列：</label>
+                    <div class="content others">
+                        {% for pg in product.group_products %}
+                        {% if pg.id==product.id %}
+                        <a href="products/{{pg.id}}" class="other active">
+                            <img src="{{pg.image}}">
+                        </a>
+                        {% else %}
+                        <a href="products/{{pg.id}}" class="other">
+                            <img src="{{pg.image}}">
+                        </a>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="label">规格：</label>
+                    <div class="content specs" id="specs">
+                        {% for pi in product.items %}
+                            {% if pi.id==product.default_item.id %}
+                            <a href="#" class="spec active" data-item-id="{{pi.id}}">{{pi.spec}}</a>
+                            {% else %}
+                            <a href="#" class="spec" data-item-id="{{pi.id}}">{{pi.spec}}</a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="label">数量：</label>
+                    <div class="content quantityContainer">
+                        <span class="quantityCtrl disabled" data-type="decrement">-</span>
+                        <input type="text" value="1" class="quantity" id="quantity" readonly>
+                        <span class="quantityCtrl" data-type="increment">+</span>
+                    </div>
+                </div>
+                {% if product.sell_type==0 %}
+                <a class="btn" id="preSell">立即预定</a>
+                {% elif product.sell_type==1 %}
+                {% if product.status!=-1 %}
+                <span class="btn" id="addToCart">加入购物车</span>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% if product.designers %}
+    <div class="section">
+        <h2 class="sectionTitle1">设计师</h2>
+        <div class="productDesigner">
+            <ul class="list2" >
+                {% for d in product.designers %}
+                <li class="show">
+                    <a href="designers/{{d.id}}">
+                        <img src="{{d.image}}">
+                        <div class="infoBg"></div>
+                        <div class="info">
+                            <h3 class="title ellipsis">{{d.name}}</h3>
+                            <p class="excerpt ellipsis">{{d.nationality}}</p>
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if product.craftsmans %}
+    <div class="section">
+        <h2 class="sectionTitle1">手工艺人</h2>
+        <div class="productDesigner">
+            <ul class="list2" >
+                {% for c in product.craftsmans %}
+                <li class="show">
+                    <a href="craftsmans/{{c.id}}">
+                        <img src="{{c.image}}">
+                        <div class="infoBg"></div>
+                        <div class="info">
+                            <h3 class="title ellipsis">{{c.name}}</h3>
+                            <p class="excerpt ellipsis">收入：
+                                <b style="color: #cf0012;font-size: 30px">{{c.income}}&nbsp;RMB</b></p>
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="section">
+        <h2 class="sectionTitle1">设计灵感</h2>
+
+        <div class="post productDesignInspiration">
+            {{product.inspiration.intro|safe}}
+
+        </div>
+    </div>
+    <div class="section">
+        <h2 class="sectionTitle1">规格参数</h2>
+        <div class="post productVars">
+            {{product.detail.parameters|safe}}
+            <!--<ul class="list4">
+                <li>产品名称：xxxxxx</li>
+                <li>产地：中国湖南</li>
+                <li>材料：纤维</li>
+                <li>产品名称：xxxxxx</li>
+                <li>产地：中国湖南</li>
+                <li>材料：纤维</li>
+            </ul>-->
+        </div>
+    </div>
+    <div class="section">
+        <h2 class="sectionTitle1">详细介绍</h2>
+        <div class="post productIntro">
+            {{product.detail.content|safe}}
+        </div>
+    </div>
+    <div class="section">
+        <h2 class="sectionTitle1">用户评论</h2>
+        <div class="comments">
+            <div class="inputContainer">
+                <div class="container">
+                    <textarea id="commentContent"></textarea>
+                </div>
+
+                <input type="button" class="button" value="评论" id="postComment">
+            </div>
+            <ul class="list5" id="comments">
+                {% for c in comments %}
+                <li>
+                    <img class="photo" src="{{c.author.image}}">
+                    <div class="info">
+                        <div class="dateContainer">
+                            <a class="reply" href="">回复</a>
+                            <p class="date">{{ dt_format(c.created,"%Y-%m-%d")}}</p>
+                        </div>
+                        <span class="name">{{c.author.nick_name}}</span>
+                        <p class="content">{{c.content}}</p>
+                    </div>
+                    {% if c.reply %}
+                    <ul class="list5">
+                        <li>
+                            <div class="info">
+                                <div class="dateContainer">
+                                    <p class="date">{{dt_format(c.reply.created,"%Y-%m-%d")}}</p>
+                                </div>
+                                <span class="name">客服回复</span>
+                                <p class="content">{{c.reply.content}}</p>
+                            </div>
+                        </li>
+                    </ul>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<form id="myForm" action="orders/submit" method="post" class="hidden">
+    <input type="hidden" name="presell" value="1">
+    <input type="hidden" name="items" id="items">
+</form>
+
+<div class="popWindow hidden" id="popWindow">
+    <div class="bg">背景层</div>
+    <div class="container">
+        <span class="close" id="popWindowClose">X</span>
+        <form class="form" id="myLoginForm" method="post" action="login">
+            <h2 class="title">登陆</h2>
+            <div class="row">
+                <label class="label">手机</label>
+                <input class="input" type="text" name="tel" id="loginTel">
+            </div>
+            <div class="row">
+                <label class="label">密码</label>
+                <input class="input" type="password" name="password" id="loginPassword">
+            </div>
+            <div class="row">
+                <input type="submit" value="登陆" class="submitBtn">
+            </div>
+        </form>
+    </div>
+</div>
+
+{% include "loading.html" %}
+
+
+{% include "footer.html" %}
+
+
+<script src="static/js/lib/jquery-2.0.3.min.js"></script>
+<script src="static/js/lib/jquery.flexslider-min.js"></script>
+<script src="static/js/lib/jquery.toastmessage.js"></script>
+<script src="static/js/lib/jquery.validate.min.js"></script>
+<script src="static/js/lib/minicart.js"></script>
+<script src="static/js/lib/juicer-min.js"></script>
+<script src="static/js/src/config.js"></script>
+<script src="static/js/src/functions.js"></script>
+<script src="static/js/src/productDetail.js"></script>
+</body>
+</html>

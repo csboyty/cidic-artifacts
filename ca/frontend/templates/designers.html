@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+    <link href="static/css/src/main.css" type="text/css" rel="stylesheet">
+    <script>
+        var pageName="designers";
+        var maxCount="{{count}}";
+        var currentPage="{{page}}";
+    </script>
+</head>
+<body>
+
+{% include "header.html" %}
+<!--<script src="templates/header.js"></script>-->
+
+<div class="wrapper designers">
+    <div class="pageInfo">
+        <h2 class="title">设计师<br>DESIGNERS</h2>
+    </div>
+    <div class="section section1">
+        <ul class="list2" id="designersList">
+            {% for d in designers %}
+            <li class="hidden">
+                <a href="designers/{{d.id}}">
+                    <img src="{{d.image}}">
+                    <div class="infoBg"></div>
+                    <div class="info">
+                        <h3 class="title ellipsis">{{d.name}}</h3>
+                        <p class="excerpt ellipsis">{{d.nationality}}</p>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+
+        </ul>
+
+        {% include "pagination.html" %}
+        <!--<div id="ownPagination" class="ownPagination hidden">
+            <a href="#" class="first disabled" data-action="first">首页</a>
+            <a href="#" class="previous disabled" data-action="previous">前一页</a>
+            <input type="text" class="showPageInfo">
+            <a href="#" class="next" data-action="next">后一页</a>
+            <a href="#" class="last" data-action="last">末页</a>
+        </div>-->
+    </div>
+</div>
+
+
+{% include "footer.html" %}
+
+
+<script src="static/js/lib/jquery-2.0.3.min.js"></script>
+<script src="static/js/lib/jquery.jqpagination.min.js"></script>
+<script src="static/js/src/config.js"></script>
+<script src="static/js/src/common.js"></script>
+<script src="static/js/src/designers.js"></script>
+</body>
+</html>

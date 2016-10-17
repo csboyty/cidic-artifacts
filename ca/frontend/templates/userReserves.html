@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+    <link href="static/css/lib/jquery.toastmessage.css" type="text/css" rel="stylesheet">
+    <link href="static/css/src/main.css" type="text/css" rel="stylesheet">
+    <script>
+        var pageName="";
+        var maxCount="{{count}}";
+        var currentPage="{{page}}";
+    </script>
+</head>
+<body>
+
+{% include "header.html" %}
+<!--<script src="templates/header.js"></script>-->
+
+<div class="wrapper3 cols">
+    <div class="col col30">
+
+        {% include "userMenu.html" %}
+        <!--<script src="templates/userMenu.js"></script>-->
+
+    </div>
+    <div class="col col70" style="background: #fff">
+        <table class="ownTable" cellspacing="0" id="orders">
+            <thead>
+            <tr>
+                <th>商品信息</th>
+                <th>金额</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for o in orders %}
+            {% set order=o[0] %}
+            <tr>
+                <td>
+                    <a href="products/{{order.items[0].product_item.product.id}}">
+                        <img src="{{order.items[0].product_item.product.image}}">
+                        {{order.items[0].product_item.product.name}}
+                    </a>
+                </td>
+                <td>&yen;{{'%.2f' % (order.items[0].unit_price*order.items[0].quantity)}}</td>
+                <td class="status">{{o[1]}}</td>
+                <td><a class="link1 cancel" href="{{ order.no }}">取消</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <p class="globalTip">如果订单有疑问，请联系客服，谢谢！</p>
+    </div>
+</div>
+
+
+{% include "footer.html" %}
+
+
+<script src="static/js/lib/jquery-2.0.3.min.js"></script>
+<script src="static/js/lib/jquery.jqpagination.min.js"></script>
+<script src="static/js/lib/jquery.toastmessage.js"></script>
+<script src="static/js/src/config.js"></script>
+<script src="static/js/src/functions.js"></script>
+<script src="static/js/src/common.js"></script>
+<script src="static/js/src/userReserves.js"></script>
+<script>
+    var menuName="reserves";
+    $("#userMenu a[data-menu-name="+menuName+"]").addClass("active");
+</script>
+</body>
+</html>

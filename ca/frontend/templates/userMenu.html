@@ -1,0 +1,27 @@
+<div class="userInfo">
+    <img class="photo" src="{{current_user.image}}">
+    <p class="name">{{current_user.nick_name if current_user.nick_name else ""}}</p>
+</div>
+<ul class="menu2" id="userMenu">
+    <li>
+        <a href="accounts/{{current_user.id}}/order" data-menu-name="orders">我的订单</a>
+    </li>
+    <li>
+        <a href="accounts/{{current_user.id}}/order-presell"  data-menu-name="reserves">我的预售</a>
+    </li>
+    <li>
+        <a href="accounts/{{current_user.id}}"  data-menu-name="profile">我的资料</a>
+    </li>
+    <li>
+        <a href="accounts/{{current_user.id}}/password"  data-menu-name="password">修改密码</a>
+    </li>
+    <li>
+        <a href="accounts/{{current_user.id}}/edit-tel"  data-menu-name="tel">修改手机</a>
+    </li>
+    <li>
+        <a href="accounts/{{current_user.id}}/addresses"  data-menu-name="address">收货地址</a>
+    </li>
+    <li>
+        <a href="accounts/{{current_user.id}}/comment"  data-menu-name="comments">我的评论</a>
+    </li>
+</ul>

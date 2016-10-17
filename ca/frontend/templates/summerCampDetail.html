@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+
+    <link href="static/css/src/main.css" type="text/css" rel="stylesheet">
+
+</head>
+<body>
+
+{% include "header.html" %}
+<!--<script src="templates/header.js"></script>-->
+
+<div class="summerCampInfo">
+    <img class="bg" src="{{activity.bg_image}}">
+    <a class="btn btn1" href="{{activity.url}}">前往{{activity.name}}官网</a>
+</div>
+<div class="wrapper">
+    <div class="section">
+        <div class="sectionTitle">
+            <h2 class="title">它的作品</h2>
+        </div>
+        <ul class="list">
+            {% for p in activity.products %}
+            <li class="show">
+                <a href="products/{{p.id}}" target="_blank">
+                    <div class="thumb">
+                        <img src="{{p.image}}">
+                        <span class="icon">
+                            {% if p.status==1 %}
+                                    成品
+                            {% else %}
+                                预售
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="info">
+                        <span class="price">{{'%.2f' % p.default_item.price}}&nbsp;RMB</span>
+                        <span class="spe">/</span>
+                        <h4 class="title ellipsis">{{p.name}}</h4>
+                        <p class="author">作者：{{p.designers[0].name if p.designers else ""}}</p>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+            {% for a in activity.achievements %}
+            <li class="show">
+                <a href="achievements/{{a.id}}" target="_blank">
+                    <div class="thumb">
+                        <img src="{{a.image}}">
+                        <span class="icon">成果</span>
+                    </div>
+                    <div class="info">
+                        <span class="price">未售</span>
+                        <span class="spe">/</span>
+                        <h4 class="title">{{a.name}}</h4>
+                        <p class="author">作者：{{a.designers[0].name if a.designers else ""}}</p>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="section">
+        <h2 class="sectionTitle1">背景</h2>
+        <div class="post">
+            {{activity.intro|safe}}
+        </div>
+    </div>
+</div>
+
+
+{% include "footer.html" %}
+
+
+<script src="static/js/lib/jquery-2.0.3.min.js"></script>
+<script src="static/js/src/config.js"></script>
+<script src="static/js/src/functions.js"></script>
+</body>
+</html>

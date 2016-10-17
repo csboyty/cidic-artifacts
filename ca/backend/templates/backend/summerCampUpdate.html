@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "backend/head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe-后台管理</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+    <link href="static/css/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="static/css/lib/jquery.toastmessage.css" rel="stylesheet" type="text/css">
+
+    <link href="static/css/src/main.css" rel="stylesheet" type="text/css">
+    <script src="static/js/lib/jquery-2.0.3.min.js"></script>
+    <script src="static/js/lib/bootstrap.min.js"></script>
+    <script src="static/js/lib/jquery.toastmessage.js"></script>
+    <script src="static/js/lib/plupload.full.min.js"></script>
+    <script src="static/js/lib/qiniu.js"></script>
+    <script src="static/js/lib/tinymce.min.js"></script>
+    <script src="static/js/lib/jquery.validate.min.js"></script>
+    <script src="static/js/lib/jquery.serialize-object.min.js"></script>
+    <script src="static/js/src/config.js"></script>
+    <script src="static/js/src/functions.js"></script>
+    <script src="static/js/src/summerCampUpdate.js"></script>
+</head>
+<body>
+
+{% include "backend/header.html" %}
+<!--<script src="templates/backend/header.js"></script>-->
+
+<nav class="left">
+
+    {% include "backend/menu.html" %}
+    <!--<script src="templates/backend/menu.js"></script>-->
+
+</nav>
+
+<section class="right">
+    <article class="main">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1 class="panel-title">新建/修改夏令营</h1>
+            </div>
+            <div class="panel-body" id="opt-body">
+                {% if not activity.id %}
+                <form class="form-horizontal" id="myForm" action="manager/activities/create" method="post">
+                {% else %}
+                    <form class="form-horizontal" id="myForm" action="manager/activities/{{activity.id}}/update" method="post">
+                {% endif %}
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">缩略图*</label>
+                        <div class="col-md-10" id="uploadContainer">
+                            <a href="#" class="btn btn-success" id="uploadBtn">上传</a>
+                            <p class="help-block">请上传500x500的jpg，png</p>
+                            {% if activity.image %}
+                            <img  id="image"  style="width:100px"
+                                  src="{{activity.image}}"/>
+                            {% else %}
+                            <img  id="image"  style="width:100px"
+                                  src="static/images/app/defaultPeopleImage.jpg"/>
+                            {% endif %}
+                            <input type="hidden" id="imageUrl" name="image" value="{{activity.image}}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">背景图*</label>
+                        <div class="col-md-10" id="uploadBgContainer">
+                            <a href="#" class="btn btn-success" id="uploadBgBtn">上传</a>
+                            <p class="help-block">请上传1920x600的jpg，png</p>
+                            {% if activity.bg_image %}
+                            <img  id="imageBg"  style="width:100px"
+                                  src="{{activity.bg_image}}"/>
+                            {% else %}
+                            <img  id="imageBg"  style="width:100px"
+                                  src="static/images/app/defaultPeopleImage.jpg"/>
+                            {% endif %}
+
+                            <input type="hidden" id="imageBgUrl" name="bg_image" value="{{activity.bg_image}}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">名称*</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" value="{{activity.name}}" name="name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">url地址*</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" value="{{activity.url}}" name="url">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="control-label col-md-2">介绍*</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control"  name="intro" rows="3" id="intro">{{activity.intro}}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="control-label col-md-2">年份</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" value="{{activity.year}}" name="year">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-8">
+                            <button type="submit" class="btn btn-success form-control">确定</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </article>
+</section>
+
+{% include "backend/loading.html" %}
+<!--<script src="templates/backend/loading.js"></script>-->
+
+</body>
+</html>

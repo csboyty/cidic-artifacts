@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+    <link href="static/css/src/main.css" rel="stylesheet" type="text/css">
+    <script src="static/js/lib/qrcode.js"></script>
+    <script>
+        var code_url="{{code_url}}";
+        var orderNo="{{order_no}}";
+        var uid="{{uid}}";
+    </script>
+</head>
+<body>
+
+{% include "header.html" %}
+<!--<script src="templates/header.js"></script>-->
+
+<div class="wrapper payPage">
+    <p class="globalTip">请扫描下方二维码付款</p>
+    <div align="center" id="qrcode"></div>
+</div>
+
+{% include "footer.html" %}
+
+
+<script src="static/js/lib/jquery-2.0.3.min.js"></script>
+<script src="static/js/src/config.js"></script>
+<script src="static/js/src/wePay.js"></script>
+</body>
+</html>

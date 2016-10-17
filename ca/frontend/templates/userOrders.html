@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+    <link href="static/css/lib/jquery.toastmessage.css" type="text/css" rel="stylesheet">
+    <link href="static/css/src/main.css" type="text/css" rel="stylesheet">
+
+    <script>
+        var pageName="";
+        var maxCount="{{count}}";
+        var currentPage="{{page}}";
+    </script>
+
+</head>
+<body>
+
+{% include "header.html" %}
+<!--<script src="templates/header.js"></script>-->
+
+<div class="wrapper3 cols">
+    <div class="col col30">
+
+        {% include "userMenu.html" %}
+        <!--<script src="templates/userMenu.js"></script>-->
+
+    </div>
+    <div class="col col70" style="background: #fff">
+        <table class="ownTable" cellspacing="0" id="orders">
+            <thead>
+                <tr>
+                    <th>订单号</th>
+                    <th>金额</th>
+                    <th>备注</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for o in orders %}
+                {% set order=o[0] %}
+                <tr class="orderItem">
+                    <td>
+                       <b>{{ order.no }}</b><br><br>日期:{{ dt_format(order.created,"%Y-%m-%d") }}
+                    </td>
+                    <td><b>&yen;{{ order.amount }}</b><br><br><span class="status">{{ o[1] }}</span></td>
+                    <td style="width: 300px">
+                        {% if o[1]==-5 %}
+                        {{order.latest_status.reject_text}}
+                        {% elif o[1]==-10 %}
+
+                        如已付款，系统自动退款到您支付账户
+
+                        {% elif o[1]==2 %}
+                        {{order.delivery.track_no}}
+                        {% endif %}
+                    </td>
+                    <td style="width: 100px">
+                        {% if o[1]==0 %}
+                        <a class="link1" target="_blank" href="orders/pay2/{{order.no}}">付款</a>
+                        &nbsp;&nbsp;
+                        {% endif %}
+                        {% if o[1]==2 %}
+                        <a class="link1 receipt" href="{{ order.no }}">收货</a>
+                        &nbsp;&nbsp;
+                        {% endif %}
+                        {% if o[1]>=0 and o[1]<=3 %}
+                        <a class="link1 cancel" href="{{ order.no }}">取消</a>
+                        &nbsp;&nbsp;
+                        {% endif %}
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <table class="ownChildTable">
+                            <!--<thead>
+                            <tr>
+                                <th>商品</th>
+                                <th>数量</th>
+                                <th>价格</th>
+                            </tr>
+                            </thead>-->
+                            <tbody>
+                                {% for oi in order.items %}
+                                <tr>
+                                    <td class="product">
+                                        <a href="products/{{ oi.product_item.product.id }}">
+                                            <img src="{{oi.product_item.product.image}}">
+                                            {{oi.product_item.product.name}}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        x{{oi.quantity}}
+                                    </td>
+                                    <td>&yen;{{'%.2f' % (oi.unit_price*oi.quantity)}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+        {% include "pagination.html" %}
+        <!--<div id="ownPagination" class="ownPagination">
+            <a href="#" class="first disabled" data-action="first">首页</a>
+            <a href="#" class="previous disabled" data-action="previous">前一页</a>
+            <input type="text" class="showPageInfo">
+            <a href="#" class="next" data-action="next">后一页</a>
+            <a href="#" class="last" data-action="last">末页</a>
+        </div>-->
+
+        <p style="font-size: 14px;color:#cf0012;text-align: center">如果订单有疑问，请联系客服，谢谢！</p>
+    </div>
+</div>
+
+{% include "loading.html" %}
+
+
+{% include "footer.html" %}
+
+
+<script src="static/js/lib/jquery-2.0.3.min.js"></script>
+<script src="static/js/lib/jquery.jqpagination.min.js"></script>
+<script src="static/js/lib/jquery.toastmessage.js"></script>
+<script src="static/js/src/config.js"></script>
+<script src="static/js/src/functions.js"></script>
+<script src="static/js/src/common.js"></script>
+<script src="static/js/src/userOrders.js"></script>
+<script>
+
+    var menuName="orders";
+    $("#userMenu a[data-menu-name="+menuName+"]").addClass("active");
+</script>
+</body>
+</html>

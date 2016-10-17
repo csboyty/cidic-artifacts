@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+
+    <link href="static/css/src/main.css" type="text/css" rel="stylesheet">
+    <script>
+        var pageName="products";
+        var maxCount="{{count}}";
+        var currentPage="{{page}}";
+    </script>
+</head>
+<body>
+
+{% include "header.html" %}
+<!--<script src="templates/header.js"></script>-->
+
+<div class="fluidWrapper">
+    <div class="gradientContainer">
+        <div class="gradient">渐变</div>
+        <img src="static/images/app/bg.png">
+    </div>
+    <div class="wrapper products">
+        <div class="pageInfo pageInfo1">
+            <h2 class="title">产品<br>PRODUCTS</h2>
+            <ul class="list3">
+                <li ><a href="products/">全部</a></li>
+                <li ><a href="products/sale" >在售</a></li>
+                <li ><a href="products/presell"  class="active" >预售</a></li>
+            </ul>
+        </div>
+        <div class="section">
+            <div class="sectionTitle">
+                <h2 class="title">预售商品</h2>
+            </div>
+            <ul class="list" id="productsList">
+                {% for p in products %}
+                <li class="hidden">
+                    <a href="products/{{p.id}}" target="_blank">
+                        <div class="thumb">
+                            <img src="{{p.image}}">
+                            <span class="icon">预售</span>
+                        </div>
+                        <div class="info">
+                            <span class="price">{{'%.2f' % p.default_item.price}}&nbsp;RMB</span>
+                            <span class="spe">/</span>
+                            <h4 class="title ellipsis">{{p.name}}</h4>
+                            <p class="author">作者：{{p.designers[0].name if p.designers else ""}}</p>
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+
+
+            {% include "pagination.html" %}
+            <!--<div id="ownPagination" class="ownPagination hidden">
+                <a href="#" class="first disabled" data-action="first">首页</a>
+                <a href="#" class="previous disabled" data-action="previous">前一页</a>
+                <input type="text" class="showPageInfo">
+                <a href="#" class="next" data-action="next">后一页</a>
+                <a href="#" class="last" data-action="last">末页</a>
+            </div>-->
+        </div>
+    </div>
+</div>
+
+
+{% include "footer.html" %}
+
+<script src="static/js/lib/jquery-2.0.3.min.js"></script>
+<script src="static/js/lib/jquery.jqpagination.min.js"></script>
+<script src="static/js/src/config.js"></script>
+<script src="static/js/src/common.js"></script>
+<script src="static/js/src/products.js"></script>
+</body>
+</html>

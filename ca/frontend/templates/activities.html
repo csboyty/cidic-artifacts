@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+    <link href="static/css/src/main.css" type="text/css" rel="stylesheet">
+    <script>
+        var pageName="activities";
+    </script>
+</head>
+<body>
+
+{% include "header.html" %}
+<!--<script src="templates/header.js"></script>-->
+
+<div class="fluidWrapper">
+    <div class="gradientContainer">
+        <div class="gradient">渐变</div>
+        <img src="static/images/app/bg.png">
+    </div>
+    <div class="wrapper products">
+        <div class="pageInfo pageInfo1">
+            <h2 class="title">活动<br>ACTIVITIES</h2>
+            <ul class="list3">
+                <li ><a href="summercamps" data-type="">夏令营</a></li>
+                <li ><a href="workshops" data-type="">工作坊</a></li>
+                <li ><a href="craftsmans" data-type="">手工艺人</a></li>
+            </ul>
+        </div>
+        <div class="section">
+            <div class="sectionTitle">
+                <h2 class="title">夏令营</h2>
+            </div>
+            <ul class="list7">
+                {% for a in activities %}
+                <li class="show">
+                    <a href="summercamps/{{a.id}}">
+                        <img src="{{a.image}}">
+                        <div class="infoBg"></div>
+                        <div class="info">
+                            <h3 class="title ellipsis">{{a.name}}</h3>
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+
+
+            <a class="btn" href="summercamps">查看更多</a>
+        </div>
+        <div class="section">
+            <div class="sectionTitle">
+                <h2 class="title">工作坊</h2>
+            </div>
+            <ul class="list1">
+                {% for w in workshops %}
+                <li class="show">
+                    <div class="thumb">
+                        <img src="{{w.image}}">
+                        <!--<span class="icon">预售</span>-->
+                    </div>
+                    <div class="info">
+                        <h4 class="title1">{{w.name}}</h4>
+                        <!--<p class="parent">所属夏令营：xxxx</p>-->
+                        <p class="excerpt">{{w.memo}}</p>
+                    </div>
+                    <div class="tips">
+                        <p class="tip tip2">
+                            设计师招募中<!--<br>结束时间&nbsp;&nbsp;2015-10-10-->
+                        </p>
+                        <a href="workshops/{{w.id}}"  class="tip1">查看</a>
+                    </div>
+                </li>
+                {% endfor %}
+
+                <!--
+                <li class="show">
+                    <div class="thumb">
+                        <img src="data/images/gongzuofang1.png">
+                        <span class="icon">预售</span>
+                    </div>
+                    <div class="info">
+                        <h4 class="title1">这里是标题</h4>
+                        <p class="parent">所属夏令营：xxxx</p>
+                        <p class="excerpt">这里是描述</p>
+                    </div>
+                    <div class="tips">
+                        <p class="tip tip2">
+                            设计师招募中<br>结束时间&nbsp;&nbsp;2015-10-10
+                        </p>
+                        <a href="templates/"  class="tip1">立即加入</a>
+                    </div>
+                </li>
+                <li class="show">
+                    <div class="thumb">
+                        <img src="data/images/gongzuofang2.png">
+                        <span class="icon">预售</span>
+                    </div>
+                    <div class="info">
+                        <h4 class="title1">这里是标题</h4>
+                        <p class="parent">所属夏令营：xxxx</p>
+                        <p class="excerpt">这里是描述</p>
+                    </div>
+                    <div class="tips">
+                        <p class="tip tip3">工作坊已经结束</p>
+                        <a href="#" class="tip1">
+                            <span class="label">6个成果</span>
+                            <span class="content">查看</span>
+                        </a>
+                    </div>
+                </li>-->
+            </ul>
+            <a class="btn" href="workshops">查看更多</a>
+        </div>
+
+        <div class="section">
+            <div class="sectionTitle">
+                <h2 class="title">手工艺人</h2>
+            </div>
+
+            <ul class="list2">
+                {% for c in craftsmans %}
+                <li class="show">
+                    <a href="craftsmans/{{c.id}}">
+                        <img src="{{c.image}}">
+                        <div class="infoBg"></div>
+                        <div class="info">
+                            <h3 class="title ellipsis">{{c.name}}</h3>
+                            <p class="excerpt ellipsis">{{c.resident_place}}</p>
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+
+            </ul>
+            <a class="btn" href="craftsmans">查看更多</a>
+        </div>
+    </div>
+</div>
+
+
+{% include "footer.html" %}
+
+
+<script src="static/js/lib/jquery-2.0.3.min.js"></script>
+<script src="static/js/src/config.js"></script>
+<script src="static/js/src/common.js"></script>
+</body>
+</html>

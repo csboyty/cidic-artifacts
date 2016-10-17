@@ -1,0 +1,13 @@
+{
+    "sEcho":1,
+    "success":true,
+    "iTotalRecords":20,
+    "iTotalDisplayRecords":20,
+    "aaData": [{
+        "id":1,
+        "name": "商品分组1"
+    },{
+        "id":1,
+        "name": "商品分组2"
+    }]
+}

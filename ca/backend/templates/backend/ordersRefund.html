@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "backend/head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe-后台管理</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+    <link href="static/css/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="static/css/lib/jquery.dataTables.css" rel="stylesheet" type="text/css">
+    <link href="static/css/lib/jquery.toastmessage.css" rel="stylesheet" type="text/css">
+    <link href="static/css/src/main.css" rel="stylesheet" type="text/css">
+    <script src="static/js/lib/jquery-2.0.3.min.js"></script>
+    <script src="static/js/lib/bootstrap.min.js"></script>
+    <script src="static/js/lib/jquery.dataTables.min.js"></script>
+    <script src="static/js/lib/jquery.toastmessage.js"></script>
+    <script src="static/js/lib/jquery.validate.min.js"></script>
+    <script src="static/js/lib/jquery.serialize-object.min.js"></script>
+    <script src="static/js/lib/juicer-min.js"></script>
+    <script src="static/js/src/config.js"></script>
+    <script src="static/js/src/functions.js"></script>
+    <script src="static/js/src/ordersRefund.js"></script>
+</head>
+<body>
+
+<script type="text/template" id="detailTpl">
+    <ul class="list-group">
+        <li class="list-group-item">
+            <h2>订单号：${order.no}</h2>
+            <h4>金额：${order.amount}</h4>
+        </li>
+        <li class="list-group-item">
+            <h4>邮寄信息</h4>
+            <p>邮寄地址：${buy_address.state}${buy_address.city}${buy_address.country}${buy_address.location}</p>
+            <p>联系电话：${buy_address.receiver_tel1}</p>
+            <p>姓名：${buy_address.receiver_name}</p>
+        </li>
+        <li class="list-group-item">
+            <h4>产品</h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>产品</th>
+                    <th>数量</th>
+                </tr>
+                </thead>
+                <tbody>
+                {@each items as p}
+                <tr>
+                    <td>
+                        <a href="${p.product_item.product.id}">
+                            <img style="width: 100px" src="${p.product_item.product.image}">
+                            ${p.product_item.product.name}----${p.product_item.spec}
+                        </a>
+                    </td>
+                    <td>${p.quantity}</td>
+                </tr>
+                {@/each}
+                </tbody>
+            </table>
+        </li>
+        <li class="list-group-item">
+            <h4>退款信息</h4>
+            <input type="button" data-order-id="${order.no}" id="yes" class="btn btn-success" value="同意">
+        </li>
+        <li class="list-group-item">
+            <form class="form-horizontal" id="refuseForm" action="manager/orders/${order.no}/do-apply-refund" method="post">
+                <input type="hidden" name="result" value="-1">
+                <div class="form-group">
+                    <label  class="control-label col-md-2">拒绝原因*</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="reject_text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" class="btn btn-success" value="拒绝">
+                    </div>
+                </div>
+            </form>
+        </li>
+    </ul>
+</script>
+
+{% include "backend/header.html" %}
+<!--<script src="templates/backend/header.js"></script>-->
+
+<nav class="left">
+
+    {% include "backend/menu.html" %}
+    <!--<script src="templates/backend/menu.js"></script>-->
+
+
+</nav>
+
+<section class="right">
+    <article class="main">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1 class="panel-title">退款订单</h1>
+            </div>
+            <div class="panel-body" id="opt-body">
+                <div class="input-group tableSearchContainer col-md-6">
+                    <input type="text" id="searchContent" class="form-control" placeholder="订单号">
+                    <span class="input-group-btn">
+                        <button id="searchBtn" class="btn btn-default" type="button">搜索</button>
+                    </span>
+                </div>
+                <table id="myTable" class="dataTable">
+                    <thead>
+                    <tr>
+                        <th>订单号</th>
+                        <th>状态</th>
+                        <th>创建日期</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!--<tr>
+                        <td>4444444444444</td>
+                        <td>2015-09-09</td>
+                        <td><a href="#" class="check">查看</a></td>
+                    </tr>-->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </article>
+</section>
+
+<!--详细信息-->
+<div class="modal fade" id="detailModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">订单详细信息</h4>
+            </div>
+            <div class="modal-body" id="detailBody">
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+{% include "backend/loading.html" %}
+<!--<script src="templates/backend/loading.js"></script>-->
+
+
+</body>
+</html>

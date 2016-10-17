@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "backend/head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe-后台管理</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+    <link href="static/css/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="static/css/lib/jquery.dataTables.css" rel="stylesheet" type="text/css">
+    <link href="static/css/lib/jquery.toastmessage.css" rel="stylesheet" type="text/css">
+    <link href="static/css/src/main.css" rel="stylesheet" type="text/css">
+    <script src="static/js/lib/jquery-2.0.3.min.js"></script>
+    <script src="static/js/lib/bootstrap.min.js"></script>
+    <script src="static/js/lib/jquery.dataTables.min.js"></script>
+    <script src="static/js/lib/jquery.validate.min.js"></script>
+    <script src="static/js/lib/juicer-min.js"></script>
+    <script src="static/js/lib/jquery.marcopolo.min.js"></script>
+    <script src="static/js/lib/jquery.toastmessage.js"></script>
+    <script src="static/js/lib/jquery.serialize-object.min.js"></script>
+    <script src="static/js/src/config.js"></script>
+    <script src="static/js/src/functions.js"></script>
+    <script src="static/js/src/workShopsMgr.js"></script>
+</head>
+<body>
+
+<script type="text/template" id="selectedTpl">
+    <div data-id="${id}" class="item">
+        ${name}<span class="glyphicon glyphicon-remove"></span>
+    </div>
+</script>
+
+{% include "backend/header.html" %}
+<!--<script src="templates/backend/header.js"></script>-->
+
+<nav class="left">
+
+    {% include "backend/menu.html" %}
+    <!--<script src="templates/backend/menu.js"></script>-->
+
+
+</nav>
+
+<section class="right">
+    <article class="main">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1 class="panel-title">工作坊管理</h1>
+            </div>
+            <div class="panel-body" id="opt-body">
+                <a class="btn btn-success" href="manager/workshops/create">
+                    <span class="glyphicon glyphicon-plus"></span> 新建
+                </a>
+                <div class="input-group tableSearchContainer col-md-6">
+                    <input type="text" id="searchContent" class="form-control" placeholder="名称">
+                    <span class="input-group-btn">
+                        <button id="searchBtn" class="btn btn-default" type="button">搜索</button>
+                    </span>
+                </div>
+                <table id="myTable" class="dataTable">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>名称</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!--<tr>
+                        <td><img src></td>
+                        <td><a href="#">dddddddd</a></td>
+                        <td><a href="#" class="delete">删除</a></td>
+                    </tr>-->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </article>
+</section>
+
+<!--设置绑定关系-->
+<div class="modal fade" id="bindModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">绑定信息</h4>
+            </div>
+            <div class="modal-body">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs">
+                    <li>
+                        <a href="#tDesigners" data-toggle="tab">设计师</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="tDesigners">
+                        <form class="form-horizontal myForm" id="bindDesigners" data-action="manager/workshops/:id/designers/add"
+                              action="manager/workshops/:id/designers/add" method="post">
+                            <div class="form-group">
+                                <label  class="control-label col-md-2">已选*</label>
+                                <div class="col-md-8 selectedContainer" id="selectedDesigners">
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="control-label col-md-2">设计师*</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" id="searchDesigners">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" class="btn btn-success" value="确定">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+{% include "backend/loading.html" %}
+<!--<script src="templates/backend/loading.js"></script>-->
+
+
+</body>
+</html>

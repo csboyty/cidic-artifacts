@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+    <link href="static/css/src/main.css" type="text/css" rel="stylesheet">
+
+</head>
+<body>
+
+{% include "header.html" %}
+<!--<script src="templates/header.js"></script>-->
+
+<div class="wrapper">
+    <div class="section peopleInfo">
+        <div class="bgGradient"></div>
+        <img class="bg" src="{{designer.bg_image}}">
+        <div class="info">
+            <p class="excerpt">{{designer.intro}}</p>
+            <img class="photo" src="{{designer.image}}">
+            <p class="name">{{designer.name}}</p>
+            <p class="country">{{designer.nationality}}</p>
+        </div>
+    </div>
+    <div class="section designerWorkShops">
+        <span class="icon">公益活动<br>PUBLIC<br>SERVICES</span>
+        <ul  class="list6">
+            {% for a in designer.activities %}
+            <li>
+                <a href="summercamps/{{a.id}}">
+                    <h2 class="title">{{a.name}}</h2>
+                    <span class="date">{{a.year}}</span>
+                </a>
+            </li>
+            {% endfor %}
+            {% for w in designer.workshops %}
+            <li>
+                <a href="workshops/{{w.id}}">
+                    <h2 class="title">{{w.name}}</h2>
+                    <!--<span class="date">2015</span>-->
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="section">
+        <div class="sectionTitle">
+            <h2 class="title">TA的作品</h2>
+        </div>
+        <ul class="list">
+            {% for p in designer.products %}
+            <li class="show">
+                <a href="products/{{p.id}}">
+                    <div class="thumb">
+                        <img src="{{p.image}}">
+                        <span class="icon">
+                            {% if p.status==1 %}
+                                    成品
+                            {% else %}
+                                预售
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="info">
+                        <span class="price">{{p.default_item.price}}&nbsp;RMB</span>
+                        <span class="spe">/</span>
+                        <h4 class="title ellipsis">{{p.name}}</h4>
+                        <p class="author">作者：{{p.designers[0].name if p.designers else ""}}</p>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+            {% for a in designer.achievements %}
+            <li class="show">
+                <a href="achievements/{{a.id}}">
+                    <div class="thumb">
+                        <img src="{{a.image}}">
+                        <span class="icon">成果</span>
+                    </div>
+                    <div class="info">
+                        <span class="price">未售</span>
+                        <span class="spe">/</span>
+                        <h4 class="title">{{a.name}}</h4>
+                        <p class="author">作者：{{a.designers[0].name if a.designers else ""}}</p>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+
+{% include "footer.html" %}
+
+
+<script src="static/js/lib/jquery-2.0.3.min.js"></script>
+<script src="static/js/src/config.js"></script>
+<script src="static/js/src/functions.js"></script>
+</body>
+</html>

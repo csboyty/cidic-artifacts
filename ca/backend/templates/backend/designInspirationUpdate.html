@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "backend/head.html" %}
+    <!--<meta charset="utf-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="keywords" content="YaLuoYe"/>
+    <meta name="description" content="YaLuoYe">
+    <title>YaLuoYe-后台管理</title>
+    <base href="http://localhost/cidic-artifacts/ca/frontend/">-->
+
+    <link href="static/css/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="static/css/lib/jquery.toastmessage.css" rel="stylesheet" type="text/css">
+
+    <link href="static/css/src/main.css" rel="stylesheet" type="text/css">
+    <script src="static/js/lib/jquery-2.0.3.min.js"></script>
+    <script src="static/js/lib/bootstrap.min.js"></script>
+    <script src="static/js/lib/jquery.toastmessage.js"></script>
+    <script src="static/js/lib/plupload.full.min.js"></script>
+    <script src="static/js/lib/qiniu.js"></script>
+    <script src="static/js/lib/jquery.marcopolo.min.js"></script>
+    <script src="static/js/lib/juicer-min.js"></script>
+    <script src="static/js/lib/tinymce.min.js"></script>
+    <script src="static/js/lib/jquery.validate.min.js"></script>
+    <script src="static/js/lib/jquery.serialize-object.min.js"></script>
+    <script src="static/js/src/config.js"></script>
+    <script src="static/js/src/functions.js"></script>
+    <script src="static/js/src/designInspirationUpdate.js"></script>
+</head>
+<body>
+
+<script type="text/template" id="designerTpl">
+    <div data-id="${id}" class="item">
+        ${name}<span class="glyphicon glyphicon-remove"></span>
+    </div>
+</script>
+
+{% include "backend/header.html" %}
+<!--<script src="templates/backend/header.js"></script>-->
+
+<nav class="left">
+
+    {% include "backend/menu.html" %}
+    <!--<script src="templates/backend/menu.js"></script>-->
+
+</nav>
+
+<section class="right">
+    <article class="main">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1 class="panel-title">新建/修改设计理念</h1>
+            </div>
+            <div class="panel-body" id="opt-body">
+                {% if not inspiration.id %}
+                <form class="form-horizontal" id="myForm" action="manager/inspirations/create" method="post">
+                {% else %}
+                    <form class="form-horizontal" id="myForm" action="manager/inspirations/{{inspiration.id}}/update" method="post">
+                {% endif %}
+
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">标题*</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" value="{{inspiration.title}}" name="title">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">已选设计师</label>
+                        <div class="col-md-8" id="designers">
+                            {% for d in inspiration.designers %}
+                            <div data-id="{{d.id}}" class="item">
+                                {{d.name}}<span class="glyphicon glyphicon-remove"></span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">设计师</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="searchDesigners">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="control-label col-md-2">描述*</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" value="{{inspiration.name}}" name="name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="control-label col-md-2">内容*</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control"  name="intro" rows="3" id="intro">{{inspiration.intro}}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-8">
+                            <button type="submit" class="btn btn-success form-control">确定</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </article>
+</section>
+
+{% include "backend/loading.html" %}
+<!--<script src="templates/backend/loading.js"></script>-->
+
+</body>
+</html>
